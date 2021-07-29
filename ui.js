@@ -1,4 +1,4 @@
-let _currentNetwork = 'ethereum';
+let _currentNetwork = 'harmony';
 
 // inits the UI, should be called in window.onload
 function uiInit() {
@@ -212,8 +212,7 @@ function _appendOutputFunctionError(errorMessage, functionEl) {
 
 // get the URL for etherscan for exploring an Ethereum/BSC address further
 function _getLinkForAddress(address) {
-  if (_currentNetwork === 'bsc') return `https://bscscan.com/address/${address}`;
-  return `https://etherscan.io/address/${address}`;
+  return `https://explorer.harmony.one/address/${address}`;
 }
 
 // add missing jquery implementation for $.deparam functionality (the opposite of $.param)

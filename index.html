@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.js" integrity="sha512-zy/iMxvOAQO5VsB1/enNUXKWxoSBFAyjXwwwIU+sMYf2+iOnqoW2EokpAnnTwue6/Kcv3w7qyALGbppj3mOVgA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js" integrity="sha512-7UzDjRNKHpQnkh1Wf1l6i/OPINS9P2DDzTwQNX79JxfbInCXGpgI1RPb3ZD+uTP3O5X7Ke4e0+cxt2TxV7n0qQ==" crossorigin="anonymous"></script>
+    <script src="bech32.js"></script>
     <script src="data.js"></script>
     <script src="ui.js"></script>
     <title>Contract Reader</title>
@@ -18,18 +19,11 @@
   <body>
     <div class="ui container">
       <div>
-        <div class="ui right labeled input" style="margin-top: 1rem; margin-right: 0.8rem;">
-          <input id="contract-address" type="text" spellcheck="false" placeholder="Contract address" style="width: 380px;">
-          <div id="contract-network" class="ui dropdown label">
-            <div class="text">Ethereum</div>
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <div class="item selected" data-value="ethereum">Ethereum</div>
-              <div class="item" data-value="bsc">BSC</div>
-            </div>
-          </div>
-        </div>
-        <button id="load-contract" class="ui primary button" style="vertical-align: top; margin-top: 1.1rem;">Load</button>
+      <div class="ui right input " style="margin-top: 1rem; margin-right: 0.8rem;">
+        <input id="contract-address" type="text" spellcheck="false" placeholder="Contract address"
+          style="width: 380px;">
+        <button id="load-contract" class="ui primary button"
+          style="vertical-align: top; margin-left: 1em;">Load</button>
       </div>
       <div id="contract-loaded" style="margin-top: 1rem; display: none;">
         <div id="abi-fields" style="margin-top: 2rem; padding-bottom: 2rem;">

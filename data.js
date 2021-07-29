@@ -8,17 +8,19 @@ async function dataFetchAbi(contractAddress, network) {
   if (!contractAddress) {
     throw new Error('Contract address is empty.');
   }
-  if (!contractAddress.startsWith('0x')) {
-    throw new Error('Contract address does not start with 0x.');
+  if (!contractAddress.startsWith('one1')) {
+    throw new Error('Contract address does not start with "one1".');
   }
   if (contractAddress.length != 42) {
     throw new Error('Contract address should be 20 bytes.');
   }
-  const abiReq = await _fetchJson(
-    `https://api.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${ETHERSCAN_API_KEY}`
+  const abiReq = await fetch(
+    `https://ctrver.t.hmny.io/fetchContractCode?contractAddress=${contractAddress}`
   );
-  if (abiReq.status === '1' && abiReq.result) {
-    return JSON.parse(abiReq.result);
+
+  if (abiReq.status === 200) {
+    let json = await abiReq.json()
+    return json.abi
   } else {
     throw new Error('ABI not found.');
   }
@@ -29,7 +31,8 @@ function dataEncodeFunctionSignature(abiField, network) {
 }
 
 function dataInitializeContractInstance(contractAddress, network, abi) {
-  _contractInstance = new (_getWeb3(network).eth.Contract)(abi, contractAddress);
+  let ethContractAddress = fromBech32(contractAddress)
+  _contractInstance = new (_getWeb3(network).eth.Contract)(abi, ethContractAddress);
 }
 
 async function dataQueryFunction(abiField, inputs, blockNumber, from) {
@@ -41,8 +44,8 @@ function dataValidateType(type, value) {
     throw new Error('Value is empty.');
   }
   if (type === 'address') {
-    if (!value.startsWith('0x')) {
-      throw new Error('Value does not start with 0x.');
+    if (!value.startsWith('one1')) {
+      throw new Error('Value does not start with one1.');
     }
     if (value.length != 42) {
       throw new Error('Value should be 20 bytes.');
@@ -52,12 +55,7 @@ function dataValidateType(type, value) {
 
 function _getWeb3(network) {
   if (!_web3Instance[network]) {
-    _web3Instance[network] = new Web3(`https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API_KEY}`);
+    _web3Instance[network] = new Web3(`https://api.harmony.one`);
   }
   return _web3Instance[network];
-}
-
-async function _fetchJson(url) {
-  const res = await fetch(url);
-  return await res.json();
 }
