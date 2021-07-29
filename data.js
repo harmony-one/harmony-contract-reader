@@ -8,15 +8,18 @@ async function dataFetchAbi(contractAddress, network) {
   if (!contractAddress) {
     throw new Error('Contract address is empty.');
   }
-  if (!contractAddress.startsWith('one1')) {
-    throw new Error('Contract address does not start with "one1".');
+  if (!contractAddress.startsWith('0x')) {
+    throw new Error('Contract address does not start with 0x.');
   }
   if (contractAddress.length != 42) {
     throw new Error('Contract address should be 20 bytes.');
   }
+
+  let bech32Address = toBech32(contractAddress)
   const abiReq = await fetch(
-    `https://ctrver.t.hmny.io/fetchContractCode?contractAddress=${contractAddress}`
+    `https://ctrver.t.hmny.io/fetchContractCode?contractAddress=${bech32Address}`
   );
+    console.log("HASDASD")
 
   if (abiReq.status === 200) {
     let json = await abiReq.json()
@@ -31,8 +34,7 @@ function dataEncodeFunctionSignature(abiField, network) {
 }
 
 function dataInitializeContractInstance(contractAddress, network, abi) {
-  let ethContractAddress = fromBech32(contractAddress)
-  _contractInstance = new (_getWeb3(network).eth.Contract)(abi, ethContractAddress);
+  _contractInstance = new (_getWeb3(network).eth.Contract)(abi, contractAddress);
 }
 
 async function dataQueryFunction(abiField, inputs, blockNumber, from) {

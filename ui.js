@@ -191,7 +191,7 @@ function _validateQueryInputArray(field, functionEl) {
     try {
       dataValidateType(fieldArg.type, inputValue);
     } catch (e) {
-      const errorMessage = `Input '${fieldArg.name}' is invalid: ${e.message}`;
+      let errorMessage = `Input '${fieldArg.name}' is invalid: ${e.message}`;
       _appendOutputFunctionError(errorMessage);
       errorMessage = true;
     }
