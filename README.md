@@ -2,6 +2,8 @@
 
 A simple contract reader for verified contracts on the harmony blockchain.
 
+[How to use it?](https://www.youtube.com/watch?v=p55uc0jgCd4)
+
 ## Run locally
 
 ```
